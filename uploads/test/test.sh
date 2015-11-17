@@ -10,8 +10,9 @@ do
 	name="test_$i.txt"
 	answer="answer_$i.txt"
 	temp="$1_temp.txt"
+	cp $1 /var/lib/lxc/my-container/rootfs/home/ubuntu/test/
 	echo "" > $temp;
-	timeout 1 ./$1 < $name > $temp;
+	timeout 1 lxc-attach -n my-container -- /home/ubuntu/test/$1 < $name > $temp;
 	if ! [ -s $temp ]
 	then
 		echo "time limit on $i test"
